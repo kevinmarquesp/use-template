@@ -4,28 +4,42 @@ import argv from 'gar';
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 import fetch from 'node-fetch';
+import system from 'system-commands';
 
 
 const args = argv(process.argv.slice(2));
 
 
-// async function hello() {
-//     const user = await inquirer.prompt({
-//         name: 'Hello world',
-//         type: 'list',
-//         message: ':3',
-//         choices: [
-//             'Option 1',
-//             'Option 2',
-//             'Option 3',
-//             'Option 4',
-//             'Option 5'
-//         ]
-//     });
-// }
-
-
 /* ===== Functions ===== */
+
+async function run(command) {
+    try {
+        await system(command);
+    } catch (error) {
+        console.error(error);
+        process.exit(1)
+    }
+}
+
+
+async function cloneRepository() {
+    const repoUrl = args.branch === 'main' ?
+        `https://github.com/${args.repo}`
+        : `-b ${args.branch} https://github.com/${args.repo}`;
+
+    await run(`git clone ${repoUrl} ${args._}`);
+    await run(`rm -rf ${args._}/.git`);
+
+    if (args.command) {
+        await run(`cd ${args._}; ${args.command}`);
+    }
+
+    await run(`cd ${args._}; git init`);
+    await run(`cd ${args._}; git add :`);
+    await run(`cd ${args._}; git branch -m main`);
+    await run(`cd ${args._}; git commit -m "Initial commit"`);
+}
+
 
 async function getBranches(branchesArray) {
     const answer = await inquirer.prompt({
@@ -75,6 +89,14 @@ async function checkArgs() {
     if (args.b && !args.branch) {
         args.branch = args.b;
     }
+
+    if (args.c && !args.command) {
+        args.command = args.c;
+    }
+
+    if (typeof(args._) != 'string') {
+        args._ = args._[0]
+    }
 }
 
 
@@ -112,15 +134,13 @@ async function getRepoName() {
 
 /* ===== Main section ===== */
 
-console.log(args);
-
 await checkArgs();
 
-if (!args.repo && !args.r) {
+if (!args.repo) {
     args.repo = await getRepoName();
 }
 
-if (args._ == 0) {
+if (!args._) {
     args._ = await getProjectName();
 }
 
@@ -130,4 +150,5 @@ if (!args.branch) {
     args.branch = await getBranches(branchesArray);
 }
 
-console.log(args);
+
+await cloneRepository();
