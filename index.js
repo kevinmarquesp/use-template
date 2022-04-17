@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import { checkArgs, fillArgs } from './arguments.js';
-import { cloneRepository } from './system.js';
+import { checkArgs, fillArgs } from './src/arguments.js';
+import { cloneRepository } from './src/system.js';
 
 import argv from 'gar';
 

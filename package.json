@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "description": "Script to import templates from github repos :D",
-  "main": "src/index.js",
+  "main": "index.js",
   "repository": "https://github.com/kevinmarquesp/use-template",
   "author": "kevinmarquesp <kevinmarqueskmp@gmail.com>",
   "license": "GNU General Public License v3",
