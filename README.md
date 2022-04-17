@@ -51,6 +51,5 @@ use-template [PROJECT NAME] -r [USER/REPO] -b [BRANCH] -c [COMMAND]
 
 Thanks for reading the project description! `<3`
 
-<a href="#top">👆 Back to top
 [👆 Back to top](#top)
 
