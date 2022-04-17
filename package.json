@@ -1,12 +1,15 @@
 {
   "name": "create-new-template",
   "type": "module",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Script to import templates from github repos :D",
   "main": "index.js",
   "repository": "https://github.com/kevinmarquesp/use-template",
   "author": "kevinmarquesp <kevinmarqueskmp@gmail.com>",
-  "license": "GNU General Public License v3",
+  "license": "SEE LICENCE IN LICENCE",
+  "bin": {
+      "create-new-template": "index.js"
+  },
   "dependencies": {
     "chalk": "^5.0.1",
     "gar": "^1.0.4",
