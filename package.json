@@ -1,7 +1,7 @@
 {
   "name": "create-new-template",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Script to import templates from github repos :D",
   "main": "index.js",
   "repository": "https://github.com/kevinmarquesp/use-template",
