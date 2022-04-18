@@ -1,51 +1,52 @@
-import system from 'system-commands';
+import shelljs from 'shelljs';
 
 
-/*  Just to use system commands more easely...
+/*  ------------------------------
+ *  Initial setup for git projects
  */
 
-async function run(command) {
-    try {
-        await system(command);
-    } catch (error) {
-        console.error(error);
-        process.exit(1)
-    }
+function gitInit() {
+    shelljs.exec('git init');
+    shelljs.exec('git branch -m main');
+    shelljs.exec('git add :');
+    shelljs.exec('git commit -m "Initial commit"');
 }
 
 
-/*  Clone the repo based on branch and init the new project
+/*  -------------------------------------------------------
+ *  Clone the repo based on branch and init the new project
+ *      props: args -> Object
  */
 
 export async function cloneRepository(args) {
     const name = args._;
     const branch = args.branch;
-    const repo = args.repo;
     const command = args.command;
+    const url = `https://github.com/${args.repo}`;
 
-    const url = `https://github.com/${repo}`;
 
+    shelljs.exec(`git clone -b ${branch} ${url} ${name}`);
+    shelljs.cd(name);
 
-    // Clone the template github repository and remove .git/
-
-    console.log('[!] Cloning the repo...');
-
-    await run(`git clone -b ${branch} ${url} ${name}`);
-    await run(`rm -rf ${name}/.git`);
-
-    // Run a custom command, if it exists
+    shelljs.rm('-rf', './.git/')
 
     if (command)
-        console.log('[!] Runing the custom command...');
+        shelljs.exec(command);
 
-        await run(`cd ${name}; ${command}`);
+    gitInit();
+}
 
-    // Init a new git project from scratch
 
-    console.log('[!] Inicializing the new project...');
+/*  -------------------------
+ *  Check if git is installed
+ *      return -> Bolean
+ */
 
-    await run(`cd ${name}; git init`);
-    await run(`cd ${name}; git add :`);
-    await run(`cd ${name}; git branch -m main`);
-    await run(`cd ${name}; git commit -m "Initial commit"`);
+export function checkGit() {
+    if (shelljs.which('git')) {
+        return true;
+
+    } else {
+        return false;
+    }
 }
