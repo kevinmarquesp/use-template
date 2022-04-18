@@ -54,7 +54,6 @@ use-template [PROJECT NAME] --repo [USER/REPO] --branch [BRANCH] --command [COMM
 - [X] Improve my english in README...
 - [X] Publish on NPM
 - [ ] Add `--help | -h` option
-- [ ] Add a ilustration gif in README
 
 
 ##
