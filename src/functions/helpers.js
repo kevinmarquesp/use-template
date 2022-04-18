@@ -2,11 +2,15 @@ import fetch from 'node-fetch';
 import chalk from 'chalk';
 
 
-/*  Given an json, that return only the branch names in an array.
+/*  -------------------------------------------------------------
+ *  Parse the json from GitHubAPI to an array with branches names
+ *      props: branchesJson -> Object
+ *      return -> Array
  */
 
 export async function parseBranchesToArray(branchesJson) {
     console.log('[!] Parsing json info to an array...');
+    console.log();
 
     const branches = [];
 
@@ -18,11 +22,14 @@ export async function parseBranchesToArray(branchesJson) {
 }
 
 
-/*  That function fetch an json from an repo. It stopo the whole programas
- *  if the repo doesn't exist.
+/*  -------------------------------------------------------------
+ *  Fetch the json file from GitHubAPI and return the intery json
+ *      props: repo -> String
+ *      return -> Object
  */
 
 export async function fetchGithubBranches(repo) {
+    console.log();
     console.log('[!] Getting repo info...');
 
     const url = `https://api.github.com/repos/${repo}/branches`

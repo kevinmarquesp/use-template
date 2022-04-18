@@ -4,22 +4,31 @@ import inquirer from 'inquirer';
 import chalk from 'chalk';
 
 
-/*  Ask user witch branch he/she want to use based on an array of options
+/*  -----------------------------------------------------------
+ *  Ask user to enter the branch name given an Array of options
+ *      return -> String
  */
 
-async function getBranches(branchesArray) {
-    const answer = await inquirer.prompt({
-        name: 'branch',
-        type: 'list',
-        message: `Select the ${chalk.yellow('branch')} that you wanna use`,
-        choices: branchesArray
-    });
+async function getBranches(branchesOptions) {
+    if (branchesOptions.length === 1) {
+        return branchesOptions[0];
 
-    return answer.branch;
+    } else {
+        const answer = await inquirer.prompt({
+            name: 'branch',
+            type: 'list',
+            message: `Select the ${chalk.yellow('branch')} that you wanna use`,
+            choices: branchesOptions
+        });
+
+        return answer.branch;
+    }
 }
 
 
-/*  Ask user the project name, it will repeat until the input isn't empty
+/*  --------------------------------
+ *  Ask user to enter a project name
+ *      return -> String | [RECALL]
  */
 
 async function getProjectName() {
@@ -29,16 +38,13 @@ async function getProjectName() {
         message: `Please, especify the ${chalk.yellow('project name')}:`
     });
 
-    if (answer.project_name) {
-        return answer.project_name;
-
-    } else {
-        return getProjectName();
-    }
+    return answer.project_name || getProjectName();
 }
 
 
-/*  Ask user the repository name, it will repeat until the input isn't empty
+/*  -----------------------------------
+ *  Ask user to enter a repository name
+ *      return -> String | [RECALL]
  */
 
 async function getRepoName() {
@@ -48,18 +54,14 @@ async function getRepoName() {
         message: `Please, especify a ${chalk.yellow('github repository')} name:`
     });
 
-    if (answer.repo_name) {
-        return answer.repo_name;
-
-    } else {
-        return getRepoName();
-    }
+    return answer.repo_name || getRepoName();
 }
 
 
-/*  Function to pass the short arguments to the default arguments.
- *      Ex: '-r' value to '--repo' value.
- *  The project name will be the first item if it was an array.
+/*  --------------------------------------------------------------
+ *  Pass shortnamed arguments values to fullnamed arguments (e. g.
+ *  -r value to --repo value)
+ *      props: args -> Object
  */
 
 export async function checkArgs(args) {
@@ -77,7 +79,9 @@ export async function checkArgs(args) {
 }
 
 
-/*  Function that fill up all the arguments if it is empty
+/*  -----------------------------
+ *  Fill up the missing arguments
+ *      props: args -> Object
  */
 
 export async function fillArgs(args) {
@@ -89,7 +93,7 @@ export async function fillArgs(args) {
 
     if (!args.branch) {
         let branchesJson = await fetchGithubBranches(args.repo);
-        let branchesArray = await parseBranchesToArray(branchesJson);
-        args.branch = await getBranches(branchesArray);
+        let branchesOptions = await parseBranchesToArray(branchesJson);
+        args.branch = await getBranches(branchesOptions);
     }
 }
