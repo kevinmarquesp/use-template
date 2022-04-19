@@ -28,7 +28,7 @@ async function getBranches(branchesOptions) {
 
 /*  --------------------------------
  *  Ask user to enter a project name
- *      return -> String | [RECALL]
+ *      return -> String || [RECALL]
  */
 
 async function getProjectName() {
@@ -44,7 +44,7 @@ async function getProjectName() {
 
 /*  -----------------------------------
  *  Ask user to enter a repository name
- *      return -> String | [RECALL]
+ *      return -> String || [RECALL]
  */
 
 async function getRepoName() {
