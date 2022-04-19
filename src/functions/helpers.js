@@ -45,3 +45,25 @@ export async function fetchGithubBranches(repo) {
         return branchesJson
     }
 }
+
+
+/*  ---------------------
+ *  Show the help message
+ */
+
+export function helpMsg() {
+    const msg = `
+Usage: create-new-template [PROJECT NAME] -r [USER/REPO] -b [BRANCH] -c [COMMAND]
+or: create-new-template
+
+A small and simple tool to clone GitHub repositories and use them as template.
+
+    --repo -r       Github repository, you need to specify. Like that: exampleuser/examplerepo
+    --branch -b     Branch of the repository that have all of your templates.
+                    (e.g. main, master, dev...)
+    --command -c    Command to run after cloning the repo and before initialize that.
+    --help -h       Show this message
+`;
+
+    console.log(msg);
+}
