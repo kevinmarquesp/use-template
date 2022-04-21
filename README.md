@@ -12,10 +12,9 @@ The script will clone the chosen repo with your new project name, delete the `.g
 
 <br>
 
-`[ Gif here... ]`
+![DEMO](./docs/demo.gif)
 
 <br>
-
 
 ## Instalation
 
