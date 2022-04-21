@@ -38,6 +38,7 @@ A small and simple tool to clone GitHub repositories and use them as template.
     --branch -b     Branch of the repository that have all of your templates.
                     (e.g. main, master, dev...)
     --command -c    Command to run after cloning the repo and before initialize that.
+    --help -h       Show this message
 ```
 
 Usage example:
@@ -53,7 +54,7 @@ use-template [PROJECT NAME] --repo [USER/REPO] --branch [BRANCH] --command [COMM
 
 - [X] Improve my english in README...
 - [X] Publish on NPM
-- [ ] Add `--help | -h` option
+- [X] Add `--help | -h` option
 
 
 ##
